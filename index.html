@@ -11,8 +11,8 @@
 </head>
 <body>
     <!-- add new button mobile only -->
-    <div class="add_new_button_mobile_only">
-        <button class="btn btn-primary d-md-none" data-bs-toggle="modal" data-bs-target="#addNewModal" >
+    <div class="add_new_button_mobile_only d-inline">
+        <button class="btn btn-warning d-md-none shadow-lg" data-bs-toggle="modal" data-bs-target="#addNewModal" >
             <i class="fas fa-add "></i>
                 Add New
         </button>
@@ -20,36 +20,36 @@
      <!-- Modal -->
      <div class="modal fade" id="addNewModal" tabindex="-1" aria-labelledby="addNewModalLabel" aria-hidden="true">
         <div class="modal-dialog  modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content bg-dark text-warning">
             <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
             ...
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-warning">Save changes</button>
             </div>
         </div>
         </div>
     </div>
     <!-- navbar -->
-    <nav class="navbar navbar-expand-lg bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Tasky</a>
+          <a class="navbar-brand fw-bold text-warning " href="#">Tasky</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">Home</a>
+                  <a class="nav-link active fw-lighter" aria-current="page" href="#">Home</a>
                 </li>
             </ul>
             
-            <button class="btn btn-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addNewModal" type="submit">
+            <button class="btn btn-outline-warning d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addNewModal" type="submit">
                 <i class="fas fa-add "></i>
                 Add New</button>
           </div>
@@ -63,7 +63,7 @@
                     <div class="input-group flex-nowrap shadow-lg rounded">
                         <input type="search" name="" id="" class="form-control" placeholder="Search Task ...."
                       aria-label="Search Task" aria-describedby="addon-wrapping" >
-                      <span class="input-group-text" id="addon-wrapper">
+                      <span class="input-group-text bg-warning" id="addon-wrapper">
                         <i class="fas fa-search"></i>
                       </span>
                     </div>
