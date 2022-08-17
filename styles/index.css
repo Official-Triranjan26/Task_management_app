@@ -19,3 +19,8 @@ body{
         display: none;
     } 
 } */
+.task_modal_body img{
+    border-radius: 3px;
+    border: 5px solid gold;
+    margin-bottom: 10px;
+}
