@@ -4,10 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+    rel="icon"
+    type="image/x-icon"
+    href="images/tasky_logo.png"
+  />
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <title>Document</title>
+    <title>Tasky</title>
 </head>
 <body onload="loadInitialData()">
     <!-- add new button mobile only -->
@@ -29,22 +34,22 @@
                 <form action="" onsubmit="return faulse">
                     <div class="mb-3">
                         <label for="imageUrl" class="from-label p-2 ">Image URL</label>
-                        <input type="url" class="form-control" id="imageUrl" placeholder="Image URL">
+                        <input type="url" class="form-control" id="imageUrl" placeholder="Past your URL here ....">
                     </div>
                     <div class="mb-3">
-                        <label for="taskTitle" class="from-label p-2">Task Titlt</label>
-                        <input type="text" class="form-control" id="taskTitle" placeholder="Task Title" required>
+                        <label for="taskTitle" class="from-label p-2">Task Title</label>
+                        <input type="text" class="form-control" id="taskTitle" placeholder="Task Title....." required>
                     </div>
                     <div class="mb-3">
                         <label for="taskType" class="from-label p-2">Task Type</label>
-                        <input type="text" class="form-control" id="tags" placeholder="Image URL">
+                        <input type="text" class="form-control" id="tags" placeholder="Task Type.....">
                     </div>
                     <div class="mb-3">
                         <label for="taskDescription" class="from-label p-2">Task DescriptionL</label>
                         <textarea class="form-control"id="taskDescription" cols="30" rows="4" placeholder="Explane Your task..."></textarea>
                     </div>
                     <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-outline-warning" onclick="handleSubmit()">Save changes</button>
+                    <button type="submit" class="btn btn-outline-warning" onclick="handleSubmit()">Add Task</button>
                 </form>
             </div>
         </div>
@@ -101,7 +106,7 @@
                 <div class="col-md-6">
                     <div class="input-group flex-nowrap shadow-lg rounded">
                         <input type="search" name="" id="" class="form-control" placeholder="Search Task ...."
-                      aria-label="Search Task" aria-describedby="addon-wrapping" >
+                      aria-label="Search Task" aria-describedby="addon-wrapping"  oninput="searchTask.apply(this, arguments)" >
                       <span class="input-group-text bg-warning" id="addon-wrapper">
                         <i class="fas fa-search"></i>
                       </span>

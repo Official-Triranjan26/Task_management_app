@@ -1,6 +1,14 @@
 const state = {
     taskList: [],
 };
+// console.log(state.taskList);
+// const landingpage=()=>{
+//     if(state.taskList.length==0){
+//         return `
+//             <div><h1>Welcome to Tasky !!</h1></div>
+//         `;
+//     }
+// }
 
 
 const taskContents = document.querySelector(".task_contents");
@@ -20,9 +28,9 @@ const htmlTaskContent = ({ id, title, description, type, url }) => `
             <div class='card-body'>
                 ${
                     url
-                    ? `<img width='100%' height='150px' style="object-fit: cover; object-position: center"  src=${url} alt='card image cap' class='card-image-top md-3 rounded-lg' />`
+                    ? `<img width='100%' height='150px' style="object-fit: cover; object-position: center"  src=${url} alt='card image cap' class='card-image-top md-3 rounded-lg border border-warning' />`
                     : `
-                    <img width='100%' height='150px!important' style="object-fit: cover; object-position: center" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbrHWzlFK_PWuIk1Jglo7Avt97howljIWwAA&usqp=CAU" alt='card image cap' class='place__holder__image ' />
+                    <img width='100%' height='150px!important' style="object-fit: cover; object-position: center" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbrHWzlFK_PWuIk1Jglo7Avt97howljIWwAA&usqp=CAU" alt='card image cap' class='place__holder__image border border-warning' />
                     `
                 }
                 <h4 class='task_card_title'>${title}</h4>
@@ -73,6 +81,9 @@ const loadInitialData = () => {
     state.taskList.map((cardDate) => {
       taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardDate));
     });
+    // landingpage();
+   
+
   };
 
 const handleSubmit = (event) => {
@@ -106,4 +117,122 @@ const openTask = (e) => {
   
     const getTask = state.taskList.find(({ id }) => id === e.target.id);
     taskModal.innerHTML = htmlModalContent(getTask);
+  };
+
+const deleteTask =(e)=>{
+    if(!e) e =window.event;
+    confirm("You are Deleting a Task !!");
+    const targetID=e.target.getAttribute("name");
+    const type=e.target.tagName;
+    const removeTask =state.taskList.filter(({id})=>id!==targetID);
+     
+    state.taskList=removeTask;
+    updateLocalStorage();
+    if(type==="BUTTON"){
+        return e.target.parentNode.parentNode.parentNode.parentNode.removeChild(
+            e.target.parentNode.parentNode.parentNode
+        );
+    }
+    return e.target.parentNode.parentNode.parentNode.parentNode.parentNode.removeChild(
+        e.target.parentNode.parentNode.parentNode.parentNode
+    );
+    
+};
+
+const editTask=(e)=>{
+    if(!e) e=window.event;
+    const targetID=e.target.id;
+    const type=e.target.tagName;
+    let parentNode;
+    let taskTitle;
+    let taskDescription;
+    let taskType;
+    let submitButton;
+
+    if (type === "BUTTON") {
+        parentNode = e.target.parentNode.parentNode;
+      } else {
+        parentNode = e.target.parentNode.parentNode.parentNode;
+      }
+      taskTitle = parentNode.childNodes[3].childNodes[3];
+      taskDescription = parentNode.childNodes[3].childNodes[5];
+      taskType = parentNode.childNodes[3].childNodes[7].childNodes[0];
+      submitButton = parentNode.childNodes[5].childNodes[1];
+
+      console.log(taskType);
+    
+      taskTitle.setAttribute("contenteditable", "true");
+      taskDescription.setAttribute("contenteditable", "true");
+      taskType.setAttribute("contenteditable", "true");
+    
+      submitButton.setAttribute("onclick", "saveEdit.apply(this, arguments)");
+      submitButton.removeAttribute("data-bs-toggle");
+      submitButton.removeAttribute("data-bs-target");
+      submitButton.innerHTML = "Save Changes";
+};
+
+
+const saveEdit = (e) => {
+    if (!e) e = window.event;
+  
+    const targetID = e.target.id;
+    const parentNode = e.target.parentNode.parentNode;
+    // console.log(parentNode.childNodes);
+  
+    const taskTitle = parentNode.childNodes[3].childNodes[3];
+    const taskDescription = parentNode.childNodes[3].childNodes[5];
+    const taskType = parentNode.childNodes[3].childNodes[7].childNodes[0];
+    const submitButton = parentNode.childNodes[5].childNodes[1];
+  
+    const updateData = {
+      taskTitle: taskTitle.innerHTML,
+      taskDescription: taskDescription.innerHTML,
+      taskType: taskType.innerHTML,
+    };
+  
+    let stateCopy = state.taskList;
+  
+    stateCopy = stateCopy.map((task) =>
+      task.id === targetID
+        ? {
+            id: task.id,
+            title: updateData.taskTitle,
+            description: updateData.taskDescription,
+            type: updateData.taskType,
+            url: task.url,
+          }
+        : task
+    );
+  
+    state.taskList = stateCopy;
+    updateLocalStorage();
+  
+    taskTitle.setAttribute("contenteditable", "false");
+    taskDescription.setAttribute("contenteditable", "false");
+    taskType.setAttribute("contenteditable", "false");
+  
+    submitButton.setAttribute("onclick", "openTask.apply(this, arguments)");
+    submitButton.setAttribute("data-bs-toggle", "modal");
+    submitButton.setAttribute("data-bs-target", "#showTask");
+    submitButton.innerHTML = "Open Task";
+
+    alert("Changes Saved Successfully ")
+  };
+
+  const searchTask = (e) => {
+    if (!e) e = window.event;
+  
+    while (taskContents.firstChild) {
+      taskContents.removeChild(taskContents.firstChild);
+    }
+  
+    const resultData = state.taskList.filter(({ title }) => {
+      return title.toLowerCase().includes(e.target.value.toLowerCase());
+    });
+  
+    console.log(resultData);
+  
+    resultData.map((cardData) => {
+      taskContents.insertAdjacentHTML("beforeend", htmlTaskContent(cardData));
+    });
   };
